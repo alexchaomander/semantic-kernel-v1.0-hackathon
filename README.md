@@ -37,7 +37,7 @@ We'll be judging submissions based off the following categories:
 - **Most useful plugin for the enterprise**
 - **Most fun and creative use of SK**
 
-Prizes will be announced throughout the week. Some include an exclusive interview feature on the Semantic Kernel DevBlog and a customized Semantic Kernel T-Shirt. Stay tuned for more!
+Stay tuned for what prizes will look like!
 
 ## Submission
 To submit your hack, please create a PR to this repo under the `submissions/` folder. Be sure to include a `README`.
