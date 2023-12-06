@@ -14,9 +14,12 @@ This time around, we encourage you all to do the same, but with a focus on the v
 
 **Why:** We are approaching a big milestone for the Semantic Kernel with the release of our 1.0 SDK. Before we do so, we want to make sure that we get as much community feedback as possible! And what better way to do this, than to do a hackathon!
 
-**How:** Read the following resources to get familiar with the v1.0 SDK
+**How:** Read the following resources to get familiar with the v1.0 SDK 
+- **(LATEST) Release Candidate 1 for the Semantic Kernel .NET SDK is now live** [(Blog)](https://devblogs.microsoft.com/semantic-kernel/release-candidate-1-for-the-semantic-kernel-net-sdk-is-now-live/)
+- **SK C# Console Chat Starter** [(Repo)](https://github.com/microsoft/semantic-kernel-starters/tree/main/sk-csharp-console-chat)
+- **SK C# Hello World Starter** [(Repo)](https://github.com/microsoft/semantic-kernel-starters/tree/main/sk-csharp-hello-world)
 - **Samples for Semantic Kernel v1 proposal** [(Repo)](https://github.com/matthewbolanos/sk-v1-proposal)
-- **Semantic Kernel's Ignite release: Beta8 for the .NET SDK** [(Blog)](https://devblogs.microsoft.com/semantic-kernel/semantic-kernels-ignite-release-beta8-for-the-net-sdk/)
+- **(OLD) Semantic Kernel's Ignite release: Beta8 for the .NET SDK** [(Blog)](https://devblogs.microsoft.com/semantic-kernel/semantic-kernels-ignite-release-beta8-for-the-net-sdk/)
 - **OpenAI Assistants: The power of templated assistant instructions** [(Blog)](https://devblogs.microsoft.com/semantic-kernel/openai-assistants-the-power-of-templated-assistant-instructions/)
 - **The Semantic Kernel YouTube Playlist! Catch up on all the latest Office Hours and new features!** [(YouTube)](https://www.youtube.com/playlist?list=PL20mfA9efrmMmLEy1fhFDvB_OmUpNUFqB)
 
