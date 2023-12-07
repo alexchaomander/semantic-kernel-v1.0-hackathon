@@ -10,15 +10,15 @@ Code Mapper is an application that uses artificial intelligence to map list of c
 It was built for the second Semantic Kernel Hackathon with the following goals in mind:
 
 1. Create a useful tool and proof-of-concept that shows how SK can be used to solve real-world problems
-1. Create a plugin that wraps some of Elasticsearch's API
+1. Showcase the use of KM as a memory plugin for SK
+	1. Test FML's Elasticsearch adapter
+1. Create helper plugins to help with the mapping process
+1. Test prompts and planners
+1. [Maybe] create a plugin that wraps some of Elasticsearch's API
 	1. NLP to create indices
 	1. NLP to search indices	
 	1. more?
-1. Showcase the use of KM as a memory plugin for SK
-	1. Test FML's Elasticsearch adapter
 1. Learn new things and have fun!
-
-our goal was to showcase the use of FML's ES adapter and the use of KM as a memory plugin for SK.
 
 ## Why Code Mapper?
 
