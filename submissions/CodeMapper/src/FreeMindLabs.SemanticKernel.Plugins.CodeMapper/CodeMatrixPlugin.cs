@@ -6,34 +6,20 @@ using Microsoft.SemanticKernel;
 
 namespace FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 
-public class TestDI
-{
-    private readonly ILogger<TestDI> _logger;
-
-    /// <inheritdoc />
-    public TestDI(ILogger<TestDI> logger)
-    {
-        this._logger = logger;
-    }
-}
-
 /// <inheritdoc />
 public class CodeMatrixPlugin
 {
     private readonly ILogger<CodeMatrixPlugin>? _logger;
-    private readonly TestDI _testDI;
 
     /// <inheritdoc />
-    public CodeMatrixPlugin(ILogger<CodeMatrixPlugin> logger, TestDI testDI)
+    public CodeMatrixPlugin(ILogger<CodeMatrixPlugin> logger)
     {
-        //this._logger = ActivatorUtilities.CreateInstance<ILogger<CodeMatrixPlugin>>();
         this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        this._testDI = testDI ?? throw new ArgumentNullException(nameof(testDI));
     }
 
     /// <inheritdoc />
     [KernelFunction, Description("Loads an Matrix spreadsheet file from disk and indexes its contents. Returns a json string.")]
-    public async Task<string> LoadSpreadsheetAsync(string fileName, string pageName)
+    public async Task<string> LoadSpreadsheetAsync([Description("bla bla")] string fileName, string pageName)
     {
         this._logger!.LogInformation("Opening spreadsheet {File}, page name {PageName}", fileName, pageName);
 

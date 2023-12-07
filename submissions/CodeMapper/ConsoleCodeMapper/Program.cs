@@ -1,6 +1,6 @@
 ﻿// Semantic Kernel Hackathon 2 - Code Mapper by Free Mind Labs.
 
-using System.Reflection;
+using ConsoleCodeMapper;
 using FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,36 +8,30 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
+using Microsoft.SemanticKernel.Plugins.Core;
 
 // *** SETUP ***
-
 IConfiguration configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddUserSecrets(Assembly.GetExecutingAssembly()) // Same secrets as SK and KM :smile:
-            .Build();
+    .AddDefaultConfiguration()
+    .Build();
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 builder.Configuration.AddConfiguration(configuration);
 
 // Builds the service collection that we will pass to SK.
-IServiceCollection services = builder.Services
+var serviceProvider = builder.Services
     .AddLogging(cfg => cfg.AddConsole())
-    .AddSingleton<TestDI>();
-
-// By using AddKernel we instantiate a KernelBuilder that uses the app's service collection.
-// Note: Pretty much any other way to do things results in two separare service collections and service providers
-// that need the same configuration. See notes for some pseudo-code.
-var kbuilder = KernelExtensions.AddKernel(services);
-kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo", configuration["OpenAI:ApiKey"]!);
-
-// Build the service provider
-var serviceProvider = services.BuildServiceProvider();
+    .AddSemanticKernel(configuration)
+    .BuildServiceProvider();
 
 // *** ACTION ***
 
 // Creates the kernel and imports the new plugin
 var kernel = serviceProvider.GetRequiredService<Kernel>();
 kernel.ImportPluginFromType<CodeMatrixPlugin>();
+#pragma warning disable SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+kernel.ImportPluginFromType<FileIOPlugin>();
+#pragma warning restore SKEXP0050 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
 OpenAIPromptExecutionSettings settings = new()
 {
