@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34310.174
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeMindLabs.SemanticKernel.Plugins.CodeMapper", "src\FreeMindLabs.SemanticKernel.Plugins.CodeMapper\FreeMindLabs.SemanticKernel.Plugins.CodeMapper.csproj", "{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{DEFCBBB2-0053-4A7D-89DC-38C59501B37C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		code-analysis.props = code-analysis.props
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		icon.png = icon.png
+		nuget-package.props = nuget-package.props
+		NOTES.md = NOTES.md
+		nuget.config = nuget.config
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{98A25CEE-3153-4E2C-902E-C27B6D1E97C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{ABFDD2F0-B988-46E1-A4F6-42CEABCE6E22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCodeMapper", "ConsoleCodeMapper\ConsoleCodeMapper.csproj", "{B24479B8-5B0C-455C-B44F-1DF1428E8E35}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B24479B8-5B0C-455C-B44F-1DF1428E8E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24479B8-5B0C-455C-B44F-1DF1428E8E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24479B8-5B0C-455C-B44F-1DF1428E8E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24479B8-5B0C-455C-B44F-1DF1428E8E35}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23} = {98A25CEE-3153-4E2C-902E-C27B6D1E97C0}
+		{B24479B8-5B0C-455C-B44F-1DF1428E8E35} = {ABFDD2F0-B988-46E1-A4F6-42CEABCE6E22}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0BBEE898-46D7-4708-811C-FCF0DF2C48F2}
+	EndGlobalSection
+EndGlobal
