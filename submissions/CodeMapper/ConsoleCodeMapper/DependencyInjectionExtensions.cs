@@ -1,6 +1,7 @@
 ﻿// Semantic Kernel Hackathon 2 - Code Mapper by Free Mind Labs.
 
 using System.Reflection;
+using FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
@@ -36,8 +37,9 @@ public static class DependencyInjectionExtensions
         // that need the same configuration. See notes for some pseudo-code.
 
         var kbuilder = KernelExtensions.AddKernel(services);
-        kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo", configuration["OpenAI:ApiKey"]!);
-        //kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo-1106", configuration["OpenAI:ApiKey"]!);
+        //kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo", configuration["OpenAI:ApiKey"]!);
+        kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo-1106", configuration["OpenAI:ApiKey"]!);
+        kbuilder.Plugins.AddFromType<CodeMatrixPlugin>();
         return services;
     }
 }

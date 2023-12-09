@@ -38,7 +38,7 @@ public class CodeMatrixPlugin
     }
 
     /// <inheritdoc />
-    [KernelFunction, Description("Loads a comma delimited file containing code categories. It returns a JSON array of categories.")]
+    [KernelFunction, Description("Loads a comma delimited file (csv) containing code categories. It returns a JSON array of categories.")]
     public async Task<string> LoadCategoriesCSVAsync(
         [Description("The input file name. It cannot contain a path.")]
         string fileName,
@@ -51,7 +51,7 @@ public class CodeMatrixPlugin
     }
 
     /// <inheritdoc />
-    [KernelFunction, Description("Loads a comma delimited file containing codes. It returns a JSON array of codes.")]
+    [KernelFunction, Description("Loads a comma delimited file (csv) containing codes. It returns a JSON array of codes.")]
     public async Task<string> LoadCodesCSVAsync(
         [Description("The input file name. It cannot contain a path.")]
         string fileName,

@@ -1,9 +1,4 @@
 ﻿// Semantic Kernel Hackathon 2 - Code Mapper by Free Mind Labs.
-
-#pragma warning disable SKEXP0050
-#pragma warning disable SKEXP0060
-#pragma warning disable SKEXP0061
-
 using ConsoleCodeMapper;
 using FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
-using Microsoft.SemanticKernel.Planning;
-using Microsoft.SemanticKernel.Planning.Handlebars;
 
 // *** SETUP ***
 IConfiguration configuration = new ConfigurationBuilder()
@@ -33,51 +26,31 @@ var serviceProvider = builder.Services
 
 // Creates the kernel and imports the new plugin
 Kernel kernel = serviceProvider.GetRequiredService<Kernel>();
-kernel.ImportPluginFromType<CodeMatrixPlugin>();
 
+var ask = @"You are a code mapper that maps category codes after they are loaded from a CSV file.
+
+Do the following:
+1. Load categories from fileName 'SourceCategories.csv'.
+2. Load categories from fileName 'DestinationCategories.csv'.
+3. Create a mapping between the category codes of both lists by matching the field 'Description' on similar meanings.
+
+Examples:
+-Given Source Description 'Cancer', we would find matches with Destination Description 'Malignant Neoplasm', 'Malignant Tumor', etc.
+-Given Source Description 'Sex Codes', we would find matches with Destination Description 'Gender', 'Sessualita'', etc.
+-Given Source Description 'Drugs', we would find matches with Destination Description 'Narcotics', 'Illegal drugs'', etc.
+
+4. The result would display a list of mappings between the source and destination categories.
+Examples:
+-Source Category: 'Cancer' -> Destination Category: 'Malignant Neoplasm'
+-Source Category: 'Drugs' -> Destination Category: 'Illegal drugs' 
+";
+
+
+var kargs = new KernelArguments();
 OpenAIPromptExecutionSettings settings = new()
 {
     FunctionCallBehavior = FunctionCallBehavior.AutoInvokeKernelFunctions
 };
-
-// Start the chat session
-string ask = @"
-Execute the following steps:
-1. Load the categories csv 'SourceCategories.csv'.
-2. Show the categories values.";
-
-ask = @"Load the categories csv 'SourceCategories.csv'.";
-//HandlebarsPlanner planner = new(
-//    new HandlebarsPlannerConfig
-//    {
-//        MaxTokens = 3000,
-//        AllowLoops = true
-//    });
-//HandlebarsPlan plan = await planner.CreatePlanAsync(kernel, ask).ConfigureAwait(false);
-
-FunctionCallingStepwisePlanner planner2 = new FunctionCallingStepwisePlanner(new FunctionCallingStepwisePlannerConfig
-{
-    MaxTokens = 3000,
-    MaxIterations = 10,
-});
-
-//var plan = await planner2.CreatePlanAsync(kernel, ask).ConfigureAwait(false);
-
-
-// Print the plan to the console
-Console.WriteLine($"Plan: {plan}");
-
-// Execute the plan
-var kargs = new KernelArguments();
-//var result = plan.InvokeAsync(kernel, new Dictionary<string, object?>(), CancellationToken.None);//.Trim();
-
-FunctionCallingStepwisePlannerResult result = await planner2.ExecuteAsync(kernel, ask).ConfigureAwait(false);
-
-return;
-
-// Print the result to the console
-Console.WriteLine($"Results: {result}");
-
 
 while (true)
 {
@@ -88,6 +61,9 @@ while (true)
         ask = Console.ReadLine()!;
     }
 
+    if (string.IsNullOrEmpty(ask))
+        continue;
+
     // Invoke the kernel
     var results = await kernel!.InvokePromptAsync(ask, new(settings)).ConfigureAwait(false);
 
@@ -95,6 +71,3 @@ while (true)
     Console.WriteLine($"Assistant > {results}");
     ask = string.Empty;
 }
-#pragma warning restore SKEXP0061
-#pragma warning restore SKEXP0060 
-#pragma warning restore SKEXP0050
