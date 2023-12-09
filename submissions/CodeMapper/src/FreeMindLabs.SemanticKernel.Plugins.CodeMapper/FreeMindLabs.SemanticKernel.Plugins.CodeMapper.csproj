@@ -10,6 +10,7 @@
     <None Remove="CategoryMappings.csv" />
     <None Remove="DestinationCategories.csv" />
     <None Remove="DestinationCodes.csv" />
+    <None Remove="DestinationCodes.full.csv" />
     <None Remove="SourceCategories.csv" />
     <None Remove="SourceCodes.csv" />
     <None Remove="~%24CodeMatrixData.xlsx" />
@@ -20,6 +21,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DestinationCategories.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DestinationCodes.full.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DestinationCodes.csv">

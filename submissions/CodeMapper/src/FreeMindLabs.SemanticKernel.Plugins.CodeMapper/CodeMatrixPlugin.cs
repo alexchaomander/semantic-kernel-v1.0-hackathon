@@ -13,7 +13,6 @@ namespace FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 public class CategoryItem
 {
     public string Id { get; set; }
-    public string Abbreviation { get; set; }
     public string Description { get; set; }
 }
 
@@ -39,7 +38,7 @@ public class CodeMatrixPlugin
 
     /// <inheritdoc />
     [KernelFunction, Description("Loads a comma delimited file (csv) containing code categories. It returns a JSON array of categories.")]
-    public async Task<string> LoadCategoriesCSVAsync(
+    public async Task<string> LoadCategoryCSVAsync(
         [Description("The input file name. It cannot contain a path.")]
         string fileName,
         CancellationToken cancellationToken)
@@ -47,19 +46,62 @@ public class CodeMatrixPlugin
         var categories = await this.LoadCSVAsync<CategoryItem>(fileName, cancellationToken).ConfigureAwait(false);
 
         var json = JsonSerializer.Serialize(categories);
+
+        this._logger!.LogDebug("{MethodName}({FileName})", nameof(LoadCategoryCSVAsync), fileName);
+
         return json;
     }
 
     /// <inheritdoc />
-    [KernelFunction, Description("Loads a comma delimited file (csv) containing codes. It returns a JSON array of codes.")]
-    public async Task<string> LoadCodesCSVAsync(
+    [KernelFunction, Description(
+        "Returns the codes for the given category from a comma delimited file (csv) containing codes. " +
+        "It returns a JSON array of codes.")]
+    public async Task<string> GetCodesOfCategoryFromCSVAsync(
         [Description("The input file name. It cannot contain a path.")]
+        string fileName,
+        [Description("The category identifier.")]
+        string categoryId,
+        CancellationToken cancellationToken)
+    {
+        if (categoryId == "4")
+        { }
+
+        var codes = await this.LoadCSVAsync<CodeItem>(fileName, cancellationToken).ConfigureAwait(false);
+
+        var filteredCodes = codes
+            .Where(c => c.CategoryId == categoryId)
+            .OrderBy(c => c.Id);
+
+        var json = JsonSerializer.Serialize(filteredCodes);
+
+        this._logger!.LogDebug("{MethodName} {FileName} {CategoryId}", nameof(GetCodesOfCategoryFromCSVAsync), fileName, categoryId);
+
+        return json;
+    }
+
+    /// <inheritdoc />
+    [KernelFunction, Description(
+        "Returns the categories referenced in a comma delimited file (csv) containing codes. " +
+        "It returns a JSON array of codes.")]
+    public async Task<string> GetCategoriesReferencedInCSVAsync(
+        [Description("The input file name.")]
         string fileName,
         CancellationToken cancellationToken)
     {
         var codes = await this.LoadCSVAsync<CodeItem>(fileName, cancellationToken).ConfigureAwait(false);
 
-        var json = JsonSerializer.Serialize(codes);
+        var categories = codes.Select(c => new CategoryItem
+        {
+            Id = c.CategoryId,
+            Description = c.CategoryDescription,
+        })
+        .DistinctBy(x => x.Id)
+        .OrderBy(c => c.Id);
+
+        var json = JsonSerializer.Serialize(categories);
+
+        this._logger!.LogDebug("{MethodName} {FileName} {CategoryId}", nameof(GetCategoriesReferencedInCSVAsync), fileName);
+
         return json;
     }
 
@@ -80,7 +122,7 @@ public class CodeMatrixPlugin
             values.Add(record);
         }
 
-        this._logger!.LogInformation("Loaded {File}. {RecordCount} record(s) found.", fileName, values.Count);
+        this._logger!.LogDebug("Loaded {File}. {RecordCount} record(s) found.", fileName, values.Count);
 
         return values;
     }

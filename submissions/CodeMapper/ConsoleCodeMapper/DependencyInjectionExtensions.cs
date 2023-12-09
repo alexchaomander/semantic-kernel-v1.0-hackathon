@@ -38,7 +38,8 @@ public static class DependencyInjectionExtensions
 
         var kbuilder = KernelExtensions.AddKernel(services);
         //kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo", configuration["OpenAI:ApiKey"]!);
-        kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo-1106", configuration["OpenAI:ApiKey"]!);
+        //kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo-1106", configuration["OpenAI:ApiKey"]!);
+        kbuilder.AddOpenAIChatCompletion("gpt-4-1106-preview", configuration["OpenAI:ApiKey"]!);
         kbuilder.Plugins.AddFromType<CodeMatrixPlugin>();
         return services;
     }

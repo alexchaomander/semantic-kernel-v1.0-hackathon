@@ -1,0 +1,66 @@
+var ask = @"You are a code mapper that maps database lookup codes of two systems.
+The list of codes is provided in comma delimited files (csv): SourceCodes.csv and DestinationCodes.csv.
+
+The files contain the following fields:
+-Id: it's the code unique identifier. Each code has a unique identifier.
+-CategoryId: the code's category identifier. A category can be assigned to multiple codes.
+-CategoryDescription: the description of the category the code belongs to.
+-Code: the code unique identifier.
+-Description
+
+
+Your task is to map the codes of the categories and then map the codes of each categories.
+You will produce a table of mapped categories followed by one with the mapped codes.
+
+Do the following:
+
+1. Load categories from fileName 'SourceCategories.csv'.
+2. Load categories from fileName 'DestinationCategories.csv'.
+3. Create a mapping between the category codes of both lists by matching the field 'Description' on similar meanings.
+Examples:
+-Given Source Description 'Cancer', we would find matches with Destination Description 'Malignant Neoplasm', 'Malignant Tumor', etc.
+-Given Source Description 'Sex Codes', we would find matches with Destination Description 'Gender', 'Sessualita'', etc.
+-Given Source Description 'Drugs', we would find matches with Destination Description 'Narcotics', 'Illegal drugs'', etc.
+
+6. Load codes from fileName 'SourceCodes.csv'.
+7. Load codes from fileName 'DestinationCodes.csv'.
+
+9. Show the first 3 codes of each list.";
+
+ask = @"
+Your list of tasks to accomplish (ignore the lines starting with '##'):
+
+- Get the categories referenced in the file 'DestinationCodes.csv'.
+- [START LOOP For each category found]
+    - Get the codes referenced in the file 'DestinationCodes.csv' with the given category.
+    - Print the referenced codes as a JSON array.
+  [END LOOP Continue until all categories are displayed]
+";
+
+var kargs = new KernelArguments();
+OpenAIPromptExecutionSettings settings = new()
+{
+    MaxTokens = 4000,
+    FunctionCallBehavior = FunctionCallBehavior.AutoInvokeKernelFunctions
+};
+
+while (true)
+{
+    // Get the user's message
+    Console.Write($"User > {ask}");
+    if (string.IsNullOrEmpty(ask))
+    {
+        ask = Console.ReadLine()!;
+    }
+
+    if (string.IsNullOrEmpty(ask))
+        continue;
+
+    // Invoke the kernel
+    var results = await kernel!.InvokePromptAsync(ask, new(settings)).ConfigureAwait(false);
+
+    // Print the results
+    Console.WriteLine($"Assistant > {results}");
+
+    ask = string.Empty;
+}

@@ -1,4 +1,5 @@
 ﻿// Semantic Kernel Hackathon 2 - Code Mapper by Free Mind Labs.
+using System.Text.Json;
 using ConsoleCodeMapper;
 using FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 using Microsoft.Extensions.Configuration;
@@ -27,47 +28,31 @@ var serviceProvider = builder.Services
 // Creates the kernel and imports the new plugin
 Kernel kernel = serviceProvider.GetRequiredService<Kernel>();
 
-var ask = @"You are a code mapper that maps category codes after they are loaded from a CSV file.
-
-Do the following:
-1. Load categories from fileName 'SourceCategories.csv'.
-2. Load categories from fileName 'DestinationCategories.csv'.
-3. Create a mapping between the category codes of both lists by matching the field 'Description' on similar meanings.
-
-Examples:
--Given Source Description 'Cancer', we would find matches with Destination Description 'Malignant Neoplasm', 'Malignant Tumor', etc.
--Given Source Description 'Sex Codes', we would find matches with Destination Description 'Gender', 'Sessualita'', etc.
--Given Source Description 'Drugs', we would find matches with Destination Description 'Narcotics', 'Illegal drugs'', etc.
-
-4. The result would display a list of mappings between the source and destination categories.
-Examples:
--Source Category: 'Cancer' -> Destination Category: 'Malignant Neoplasm'
--Source Category: 'Drugs' -> Destination Category: 'Illegal drugs' 
-";
-
-
 var kargs = new KernelArguments();
 OpenAIPromptExecutionSettings settings = new()
 {
+    MaxTokens = 4000,
     FunctionCallBehavior = FunctionCallBehavior.AutoInvokeKernelFunctions
 };
 
-while (true)
+// Load the SourceCodes.csv file
+string ask = "Get the categories referenced in the file SourceCodes.csv and return them as a JSON array. Do not add any additional text to the response.";
+Console.WriteLine(ask);
+var jsonCategoriesResult = await kernel.InvokePromptAsync(ask, new(settings)).ConfigureAwait(false);
+
+Console.WriteLine(jsonCategoriesResult);
+
+var categories = JsonSerializer.Deserialize<CategoryItem[]>(jsonCategoriesResult.ToString())!;
+
+for (int i = 0; i < categories.Length; i++)
 {
-    // Get the user's message
-    Console.Write($"User > {ask}");
-    if (string.IsNullOrEmpty(ask))
-    {
-        ask = Console.ReadLine()!;
-    }
+    CategoryItem? category = categories[i];
 
-    if (string.IsNullOrEmpty(ask))
-        continue;
+    ask = $"Get the codes for category {category.Id} from the file SourceCodes.csv and return them as a JSON array. Do not add any additional text to the response.";
+    Console.WriteLine(ask);
 
-    // Invoke the kernel
-    var results = await kernel!.InvokePromptAsync(ask, new(settings)).ConfigureAwait(false);
+    var jsonCodesResult = await kernel.InvokePromptAsync(ask, new(settings)).ConfigureAwait(true);
+    var codes = JsonSerializer.Deserialize<CodeItem[]>(jsonCodesResult.ToString());
 
-    // Print the results
-    Console.WriteLine($"Assistant > {results}");
-    ask = string.Empty;
+    Console.WriteLine(jsonCodesResult);
 }
