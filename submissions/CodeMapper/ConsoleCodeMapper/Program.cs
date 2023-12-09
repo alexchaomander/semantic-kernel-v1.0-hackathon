@@ -1,6 +1,8 @@
 ﻿// Semantic Kernel Hackathon 2 - Code Mapper by Free Mind Labs.
 
-#pragma warning disable SKEXP0060 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+#pragma warning disable SKEXP0050
+#pragma warning disable SKEXP0060
+#pragma warning disable SKEXP0061
 
 using ConsoleCodeMapper;
 using FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
+using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.Planning.Handlebars;
 
 // *** SETUP ***
@@ -41,18 +44,24 @@ OpenAIPromptExecutionSettings settings = new()
 string ask = @"
 Execute the following steps:
 1. Load the categories csv 'SourceCategories.csv'.
-2. Show the categories values as plain text.";
+2. Show the categories values.";
 
-ask = @"1. Load the categories csv 'SourceCategories.csv'";
+ask = @"Load the categories csv 'SourceCategories.csv'.";
+//HandlebarsPlanner planner = new(
+//    new HandlebarsPlannerConfig
+//    {
+//        MaxTokens = 3000,
+//        AllowLoops = true
+//    });
+//HandlebarsPlan plan = await planner.CreatePlanAsync(kernel, ask).ConfigureAwait(false);
 
+FunctionCallingStepwisePlanner planner2 = new FunctionCallingStepwisePlanner(new FunctionCallingStepwisePlannerConfig
+{
+    MaxTokens = 3000,
+    MaxIterations = 10,
+});
 
-HandlebarsPlanner planner = new(
-    new HandlebarsPlannerConfig
-    {
-        MaxTokens = 3000,
-        AllowLoops = true
-    });
-HandlebarsPlan plan = await planner.CreatePlanAsync(kernel, ask).ConfigureAwait(false);
+//var plan = await planner2.CreatePlanAsync(kernel, ask).ConfigureAwait(false);
 
 
 // Print the plan to the console
@@ -60,7 +69,9 @@ Console.WriteLine($"Plan: {plan}");
 
 // Execute the plan
 var kargs = new KernelArguments();
-var result = plan.InvokeAsync(kernel, new Dictionary<string, object?>(), CancellationToken.None);//.Trim();
+//var result = plan.InvokeAsync(kernel, new Dictionary<string, object?>(), CancellationToken.None);//.Trim();
+
+FunctionCallingStepwisePlannerResult result = await planner2.ExecuteAsync(kernel, ask).ConfigureAwait(false);
 
 return;
 
@@ -84,4 +95,6 @@ while (true)
     Console.WriteLine($"Assistant > {results}");
     ask = string.Empty;
 }
-#pragma warning restore SKEXP0060 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+#pragma warning restore SKEXP0061
+#pragma warning restore SKEXP0060 
+#pragma warning restore SKEXP0050
