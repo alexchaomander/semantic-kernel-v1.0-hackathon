@@ -45,9 +45,9 @@ public class CodeMatrixPlugin
     {
         var categories = await this.LoadCSVAsync<CategoryItem>(fileName, cancellationToken).ConfigureAwait(false);
 
-        var json = JsonSerializer.Serialize(categories);
+        var json = this.SerializeToJson(categories);
 
-        this._logger!.LogDebug("{MethodName}({FileName})", nameof(LoadCategoryCSVAsync), fileName);
+        this._logger!.LogDebug("***** {MethodName}({FileName})", nameof(LoadCategoryCSVAsync), fileName);
 
         return json;
     }
@@ -70,18 +70,19 @@ public class CodeMatrixPlugin
 
         var filteredCodes = codes
             .Where(c => c.CategoryId == categoryId)
-            .OrderBy(c => c.Id);
+            .OrderBy(c => c.Id)
+            .ToList();
 
-        var json = JsonSerializer.Serialize(filteredCodes);
+        var json = this.SerializeToJson(filteredCodes);
 
-        this._logger!.LogDebug("{MethodName} {FileName} {CategoryId}", nameof(GetCodesOfCategoryFromCSVAsync), fileName, categoryId);
+        this._logger!.LogDebug("***** {MethodName} {FileName} {CategoryId}", nameof(GetCodesOfCategoryFromCSVAsync), fileName, categoryId);
 
         return json;
     }
-
+   
     /// <inheritdoc />
     [KernelFunction, Description(
-        "Returns the categories referenced in a comma delimited file (csv) containing codes. " +
+        "Returns the categories referenced in a csv file containing codes. " +
         "It returns a JSON array of codes.")]
     public async Task<string> GetCategoriesReferencedInCSVAsync(
         [Description("The input file name.")]
@@ -98,9 +99,9 @@ public class CodeMatrixPlugin
         .DistinctBy(x => x.Id)
         .OrderBy(c => c.Id);
 
-        var json = JsonSerializer.Serialize(categories);
+        var json = this.SerializeToJson(categories);
 
-        this._logger!.LogDebug("{MethodName} {FileName} {CategoryId}", nameof(GetCategoriesReferencedInCSVAsync), fileName);
+        this._logger!.LogDebug("***** {MethodName} {FileName}", nameof(GetCategoriesReferencedInCSVAsync), fileName);
 
         return json;
     }
@@ -122,8 +123,21 @@ public class CodeMatrixPlugin
             values.Add(record);
         }
 
-        this._logger!.LogDebug("Loaded {File}. {RecordCount} record(s) found.", fileName, values.Count);
+        this._logger!.LogDebug("***** Loaded {File}. {RecordCount} record(s) found.", fileName, values.Count);
 
         return values;
     }
+
+    private JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        WriteIndented = true,
+    };
+
+    private string SerializeToJson<T>(T value)
+    {
+        var json = JsonSerializer.Serialize(value, this._jsonSerializerOptions);
+
+        return json;
+    }
+
 }

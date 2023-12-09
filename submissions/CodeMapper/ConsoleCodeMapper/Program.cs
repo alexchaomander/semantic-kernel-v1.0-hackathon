@@ -19,7 +19,9 @@ builder.Configuration.AddConfiguration(configuration);
 
 // Builds the service collection that we will pass to SK.
 var serviceProvider = builder.Services
-    .AddLogging(cfg => cfg.AddConsole())
+    .AddLogging(cfg => cfg
+        .SetMinimumLevel(LogLevel.Debug)
+        .AddConsole())
     .AddSemanticKernel(configuration)
     .BuildServiceProvider();
 
@@ -28,31 +30,46 @@ var serviceProvider = builder.Services
 // Creates the kernel and imports the new plugin
 Kernel kernel = serviceProvider.GetRequiredService<Kernel>();
 
-var kargs = new KernelArguments();
 OpenAIPromptExecutionSettings settings = new()
 {
+    Temperature = 0.2,
     MaxTokens = 4000,
     FunctionCallBehavior = FunctionCallBehavior.AutoInvokeKernelFunctions
 };
 
 // Load the SourceCodes.csv file
-string ask = "Get the categories referenced in the file SourceCodes.csv and return them as a JSON array. Do not add any additional text to the response.";
-Console.WriteLine(ask);
-var jsonCategoriesResult = await kernel.InvokePromptAsync(ask, new(settings)).ConfigureAwait(false);
+string ask =
+    "Get the categories referenced in the csv file {{$input}} and return them as a JSON array. " +
+    "Do not add any additional text to the response.";
 
-Console.WriteLine(jsonCategoriesResult);
+var getCategoriesCall = kernel.CreateFunctionFromPrompt(ask, settings);
+var catResult = await kernel.InvokeAsync(getCategoriesCall, new("SourceCodes.csv")).ConfigureAwait(false);
 
-var categories = JsonSerializer.Deserialize<CategoryItem[]>(jsonCategoriesResult.ToString())!;
+Console.WriteLine(catResult);
+
+//------------------------------------------------------------
+var categories = JsonSerializer.Deserialize<CategoryItem[]>(catResult.ToString())!;
+
+var getCodesCall = kernel.CreateFunctionFromPrompt(
+       "Get the codes of category {{$input}} from the file SourceCodes.csv and return them as a JSON array. " +
+       "Return the response without any additional text except the JSON array." +
+       "Example of response:\r\n " +
+       "[{ Id: 1, Description: 'bla bla'}, { Id: 2, Description: 'something else'}]" +
+       "IMPORTANT: Make sure the resonse does not contain more than one array.",
+    settings);
 
 for (int i = 0; i < categories.Length; i++)
 {
     CategoryItem? category = categories[i];
 
-    ask = $"Get the codes for category {category.Id} from the file SourceCodes.csv and return them as a JSON array. Do not add any additional text to the response.";
-    Console.WriteLine(ask);
+    var jsonCodesResult = await kernel.InvokeAsync(getCodesCall, new(category.Id))
+        .ConfigureAwait(true);
 
-    var jsonCodesResult = await kernel.InvokePromptAsync(ask, new(settings)).ConfigureAwait(true);
-    var codes = JsonSerializer.Deserialize<CodeItem[]>(jsonCodesResult.ToString());
+    var json = jsonCodesResult.ToString();
+    // trim json up to and including the last ']'
+    var trimmedJson = json.Substring(0, json.IndexOf(']') + 1);
 
-    Console.WriteLine(jsonCodesResult);
+    var codes = JsonSerializer.Deserialize<CodeItem[]>(json);
+
+    Console.WriteLine(trimmedJson);
 }
