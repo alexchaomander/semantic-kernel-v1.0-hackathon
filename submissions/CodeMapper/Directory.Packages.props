@@ -3,11 +3,14 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="CsvHelper" Version="30.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.KernelMemory.Abstractions" Version="0.17.231206.2-preview" />
+    <PackageVersion Include="Microsoft.KernelMemory.Abstractions" Version="0.18.231208.1-preview" />
     <PackageVersion Include="Microsoft.KernelMemory.Core" Version="0.17.231205.2-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel" Version="1.0.0-rc3" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Planners.OpenAI" Version="1.0.0-rc3" />
+      <PackageVersion Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.0.0-rc3" />
     <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="8.11.0" />
   </ItemGroup>
   <!-- Sources -->

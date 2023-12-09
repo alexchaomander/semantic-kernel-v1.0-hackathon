@@ -1,0 +1,6 @@
+Id,SourceCategoryId,SourceCategoryDescription,DestinationCategoryId,DestinationCategoryDescription
+1,1,Sex Codes,2,Gender
+2,2,Eye Color Codes,5,Color - Eyes
+3,3,Hair Color Codes,4,Color - Hair
+4,4,Hair Style Codes,3,Hair Style
+5,5,Incident Type Codes,1,Incident Types

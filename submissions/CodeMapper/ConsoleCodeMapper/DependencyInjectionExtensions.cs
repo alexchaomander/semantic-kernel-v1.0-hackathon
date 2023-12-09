@@ -37,7 +37,7 @@ public static class DependencyInjectionExtensions
 
         var kbuilder = KernelExtensions.AddKernel(services);
         kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo", configuration["OpenAI:ApiKey"]!);
-
+        //kbuilder.AddOpenAIChatCompletion("gpt-3.5-turbo-1106", configuration["OpenAI:ApiKey"]!);
         return services;
     }
 }
