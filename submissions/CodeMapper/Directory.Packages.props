@@ -9,8 +9,8 @@
     <PackageVersion Include="Microsoft.KernelMemory.Abstractions" Version="0.18.231208.1-preview" />
     <PackageVersion Include="Microsoft.KernelMemory.Core" Version="0.18.231208.1-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel" Version="1.0.0-rc3" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Planners.OpenAI" Version="1.0.0-rc3" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.0.0-rc3" />
+    <PackageVersion Include="Microsoft.SemanticKernel.PromptTemplate.Handlebars" Version="1.0.0-rc3" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Yaml" Version="1.0.0-rc3" />
     <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="8.11.0" />
   </ItemGroup>
   <!-- Sources -->

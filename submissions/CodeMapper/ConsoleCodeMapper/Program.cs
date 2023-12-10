@@ -8,7 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 
-// *** SETUP ***
+
+// Depenedency injection
 var builder = Host
     .CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((context, config) =>
@@ -22,25 +23,23 @@ var builder = Host
     {
         logging.ClearProviders();
         logging.AddConsole();
-        logging.SetMinimumLevel(LogLevel.Warning);
+        logging.SetMinimumLevel(LogLevel.Debug);
     })
     .ConfigureServices((context, services) =>
     {
-        services.AddHostedService<ConsoleChat>();
-        // By using AddKernel we instantiate a KernelBuilder that uses the app's service collection.
-        // Note: Pretty much any other way to do things results in two separare service collections and service providers
-        // that need the same configuration. See notes for some pseudo-code.
+        services.AddHostedService<InteractiveChat>();
+        services.AddSingleton<IChatEvents, ConsoleEvents>();
+
         var apiKey = context.Configuration["OpenAI:ApiKey"]!;
         var chatModelId = context.Configuration["OpenAI:ChatModelId"]!;
 
         var kbuilder = KernelExtensions
+            // By using AddKernel we instantiate a KernelBuilder that uses the app's service collection.
+            // Note: Pretty much any other way to do things results in two separare service collections and service providers
+            // that need the same configuration. See notes for some pseudo-code.
             .AddKernel(services)
-            .AddOpenAIChatCompletion(
-                modelId: context.Configuration["OpenAI:ChatModelId"]!,
-                apiKey: context.Configuration["OpenAI:ApiKey"]!)
-            .Plugins
-                .AddFromType<CodeMatrixPlugin>();
-
+            .AddOpenAIChatCompletion(modelId: chatModelId, apiKey: apiKey)
+            .Plugins.AddFromType<CodeMatrixPlugin>();
     });
 
 // Build and run the host. This keeps the app running using the HostedService.

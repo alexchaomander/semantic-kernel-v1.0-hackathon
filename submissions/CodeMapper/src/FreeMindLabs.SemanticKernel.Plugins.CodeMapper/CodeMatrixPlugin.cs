@@ -37,7 +37,8 @@ public class CodeMatrixPlugin
     }
 
     /// <inheritdoc />
-    [KernelFunction, Description("Loads a comma delimited file (csv) containing code categories. It returns a JSON array of categories.")]
+    [KernelFunction, Description(
+        "Loads a comma delimited file (csv) containing code categories. It returns a JSON array of categories.")]
     public async Task<string> LoadCategoryCSVAsync(
         [Description("The input file name. It cannot contain a path.")]
         string fileName,
@@ -79,7 +80,7 @@ public class CodeMatrixPlugin
 
         return json;
     }
-   
+
     /// <inheritdoc />
     [KernelFunction, Description(
         "Returns the categories referenced in a csv file containing codes. " +
@@ -109,6 +110,8 @@ public class CodeMatrixPlugin
     private async Task<IEnumerable<T>> LoadCSVAsync<T>(string fileName, CancellationToken cancellationToken)
         where T : class
     {
+        fileName = this.GetDataPath(fileName);
+
         var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true,
@@ -140,4 +143,10 @@ public class CodeMatrixPlugin
         return json;
     }
 
+    private string GetDataPath(string fileName)
+    {
+        var path = Path.Combine("Data", fileName);
+
+        return path;
+    }
 }
