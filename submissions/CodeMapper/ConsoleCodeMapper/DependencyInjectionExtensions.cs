@@ -13,12 +13,12 @@ namespace ConsoleCodeMapper;
 /// </summary>
 public static class DependencyInjectionExtensions
 {
-    /// <summary>
-    /// Loads the configuration of Code Mapper from appSettings, user secrets and environment variables.
-    /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
-    public static IConfigurationBuilder AddDefaultConfiguration(this ConfigurationBuilder builder)
+    ///// <summary>
+    ///// Loads the configuration of Code Mapper from appSettings, user secrets and environment variables.
+    ///// </summary>
+    ///// <param name="builder"></param>
+    ///// <returns></returns>
+    public static IConfigurationBuilder AddDefaultConfiguration(this IConfigurationBuilder builder)
         => new ConfigurationBuilder()
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .AddUserSecrets(Assembly.GetExecutingAssembly()) // Same secrets as SK and KM :smile:

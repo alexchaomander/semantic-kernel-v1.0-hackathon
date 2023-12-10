@@ -1,75 +1,49 @@
 ﻿// Semantic Kernel Hackathon 2 - Code Mapper by Free Mind Labs.
-using System.Text.Json;
-using ConsoleCodeMapper;
+
+using System.Reflection;
 using FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
 
 // *** SETUP ***
-IConfiguration configuration = new ConfigurationBuilder()
-    .AddDefaultConfiguration()
-    .Build();
+var builder = Host
+    .CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((context, config) =>
+    {
+        config
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddUserSecrets(Assembly.GetExecutingAssembly()) // Same secrets as SK and KM :smile:
+            .AddEnvironmentVariables();
+    })
+    .ConfigureLogging(logging =>
+    {
+        logging.ClearProviders();
+        logging.AddConsole();
+        logging.SetMinimumLevel(LogLevel.Warning);
+    })
+    .ConfigureServices((context, services) =>
+    {
+        services.AddHostedService<ConsoleChat>();
+        // By using AddKernel we instantiate a KernelBuilder that uses the app's service collection.
+        // Note: Pretty much any other way to do things results in two separare service collections and service providers
+        // that need the same configuration. See notes for some pseudo-code.
+        var apiKey = context.Configuration["OpenAI:ApiKey"]!;
+        var chatModelId = context.Configuration["OpenAI:ChatModelId"]!;
 
-HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
-builder.Configuration.AddConfiguration(configuration);
+        var kbuilder = KernelExtensions
+            .AddKernel(services)
+            .AddOpenAIChatCompletion(
+                modelId: context.Configuration["OpenAI:ChatModelId"]!,
+                apiKey: context.Configuration["OpenAI:ApiKey"]!)
+            .Plugins
+                .AddFromType<CodeMatrixPlugin>();
 
-// Builds the service collection that we will pass to SK.
-var serviceProvider = builder.Services
-    .AddLogging(cfg => cfg
-        .SetMinimumLevel(LogLevel.Debug)
-        .AddConsole())
-    .AddSemanticKernel(configuration)
-    .BuildServiceProvider();
+    });
 
-// *** ACTION ***
-
-// Creates the kernel and imports the new plugin
-Kernel kernel = serviceProvider.GetRequiredService<Kernel>();
-
-OpenAIPromptExecutionSettings settings = new()
-{
-    Temperature = 0.2,
-    MaxTokens = 4000,
-    FunctionCallBehavior = FunctionCallBehavior.AutoInvokeKernelFunctions
-};
-
-// Load the SourceCodes.csv file
-string ask =
-    "Get the categories referenced in the csv file {{$input}} and return them as a JSON array. " +
-    "Do not add any additional text to the response.";
-
-var getCategoriesCall = kernel.CreateFunctionFromPrompt(ask, settings);
-var catResult = await kernel.InvokeAsync(getCategoriesCall, new("SourceCodes.csv")).ConfigureAwait(false);
-
-Console.WriteLine(catResult);
-
-//------------------------------------------------------------
-var categories = JsonSerializer.Deserialize<CategoryItem[]>(catResult.ToString())!;
-
-var getCodesCall = kernel.CreateFunctionFromPrompt(
-       "Get the codes of category {{$input}} from the file SourceCodes.csv and return them as a JSON array. " +
-       "Return the response without any additional text except the JSON array." +
-       "Example of response:\r\n " +
-       "[{ Id: 1, Description: 'bla bla'}, { Id: 2, Description: 'something else'}]" +
-       "IMPORTANT: Make sure the resonse does not contain more than one array.",
-    settings);
-
-for (int i = 0; i < categories.Length; i++)
-{
-    CategoryItem? category = categories[i];
-
-    var jsonCodesResult = await kernel.InvokeAsync(getCodesCall, new(category.Id))
-        .ConfigureAwait(true);
-
-    var json = jsonCodesResult.ToString();
-    // trim json up to and including the last ']'
-    var trimmedJson = json.Substring(0, json.IndexOf(']') + 1);
-
-    var codes = JsonSerializer.Deserialize<CodeItem[]>(json);
-
-    Console.WriteLine(trimmedJson);
-}
+// Build and run the host. This keeps the app running using the HostedService.
+var host = builder.Build();
+await host.RunAsync()
+    .ConfigureAwait(false);
