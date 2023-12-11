@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "description": "Generate a conversation with a historical figure",
+  "type": "completion",
+  "completion": {
+    "max_tokens": 300,
+    "temperature": 0.7
+  },
+  "input": {
+    "parameters": [
+      {
+        "name": "input",
+        "description": "Name of the historical figure",
+        "defaultValue": ""
+      }
+    ]
+  }
+}
