@@ -9,28 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\CategoryMappings.csv" />
-    <None Remove="Data\DestinationCategories.csv" />
     <None Remove="Data\DestinationCodes.csv" />
-    <None Remove="Data\DestinationCodes.full.csv" />
-    <None Remove="Data\SourceCategories.csv" />
     <None Remove="Data\SourceCodes.csv" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Data\CategoryMappings.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\DestinationCategories.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Data\DestinationCodes.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\DestinationCodes.full.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\SourceCategories.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\SourceCodes.csv">

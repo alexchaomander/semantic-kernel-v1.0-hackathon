@@ -1,10 +1,8 @@
 # Your goal
 You are going to produce a mapping between the codes of two systems: (source) and (destination).
 The remainder of this text will give you information and examples of the data you will be working with.
-At the end I will provide you with an action plan, for you to execute once I tell you to 'proceed'.
 
-Do not yet start to execute the action plan, but just absorb all the information and tell me what your plan is succintly.
-Provide a short sample result as well so we can be sure you match the format outlined below.
+Do not start to execute the mapping plan yet: just absorb all the information and tell me what your plan is succintly. Provide a short sample result as well so we can be sure you match the format outlined below.
 
 ## Information on codes
 A code is a data structure that contains the following fields: 

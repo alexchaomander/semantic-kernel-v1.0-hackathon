@@ -76,21 +76,100 @@ In order to integrate the two systems, the codes in the source system need to be
     1. What if the mapping were ```Sex Code/F/Female``` to ```Gender/2311/Subject's gender reported as female```? 
         1. How do we match codes that have nothing in common, except **semantically**?
 
-Code Mapper uses a combination of machine learning and natural language processing to facilitate the mapping of codes. 
+Code Mapper uses a combination of machine learning and natural language processing to facilitate the mapping of codes.
 
 ## How does it work?
 
-1. The user prepares two CSV files containing the source codes and destination codes.
-    1. These files need to be placed in the ```\Data``` subfolder, for the app to have access to them.
-        1. Check [SourceCodes.csv](/ConsoleCodeMapper/Data/SourceCodes.csv) to see all the codes in the source system.
-        1. Check [DestinationCodes.csv](/ConsoleCodeMapper/Data/DestinationCodes.csv) to see all the codes in the destination system.
-Take a look at the 
+In order to map codes, we need the following:
 
-1. The user starts Code Mapper and begins interacting with it via a command-line chat interface.
+1. The Semantic Kernel plugin [CodeMapperPlugin](/src/FreeMindLabs.SemanticKernel.Plugins.CodeMapper/CodeMapperPlugin.cs) that:
+    1. Can load data from CSV files
+    1. Can extract categories and codes from such files with some filtering options
+        1. The files containing codes could be very large and will likely overflow the maximum amount of tokens we can use in a prompt.
+        
+1. A [prompt](ConsoleCodeMapper/FirstPrompt.md) that explains how to map codes and that includes sample data.
+    1. The prompt is written in Markdown, so it can be easily edited and viewed.
+      
+1. Data to map:
+    1. The user prepares two CSV files containing the source codes and destination codes.
+        1. These files need to be placed in the ```\Data``` subfolder, for the app to have access to them.
+            1. Check [SourceCodes.csv](/ConsoleCodeMapper/Data/SourceCodes.csv) to see all the codes in the source system.
+            1. Check [DestinationCodes.csv](/ConsoleCodeMapper/Data/DestinationCodes.csv) to see all the codes in the destination system.            
 
-# Architecture
+### Configuration
+
+To launch Code Mapper, we need an Open AI API Key in user secrets.
+If you look at the appSettings.json file, you will see the following:
+
+```
+{
+  "OpenAI": {
+    "ApiKey": "...secrets...",
+    "EmbeddingModelId": "text-embedding-ada-002",
+    "CompletionModelId": "text-davinci-003",
+    "ChatModelId": "gpt-4"    
+  }
+}
+```
+
+Enter the value of your OpenAI ApiKey in user secrets by running the following command:
+```
+dotnet user-secrets set "OpenAI:ApiKey" "12345"
+```
+
+Once you do that, the secrets.json file of the project will look like this:
+```
+{
+  "OpenAI:ApiKey": "sk-xxxw8OIAPzrXRxxxxxxxxxlbkFJIBrvsAQE8xxxx"  
+}
+```
 
 
+## Running Code Mapper
+
+### Startup
+Once Code Mapper starts, the initial [code mapping prompt](ConsoleCodeMapper/FirstPrompt.md) will be sent to the application (green) which will then explain its plan for mapping codes (cyan).
+
+<img src="/content/Startup.png" width=1000>
+
+### Load and display the codes
+
+We can run the commands ```display all source categories``` and ```display all destination categories``` to see the categories of codes in the source and destination systems.
+
+These commands make use of the methods of the [CodeMapperPlugin](/src/FreeMindLabs.SemanticKernel.Plugins.CodeMapper/CodeMapperPlugin.cs) to load the codes from the CSV files and display them in a table.
+
+<img src="/content/ListCodes.png" width=1000>
+
+### Get the ids of categories
+
+We can get the id of a category by searching by its description.
+```What is the id of the source category with description 'Sex Codes'?```
+
+<img src="/content/IdLookupByDescription.png" width=1000>
+
+### Do the mapping of codes
+
+Mapping codes is as simple as sending a command like:
+``` Map the codes the source category with description 'Sex Codes'```
+
+<img src="/content/SexCodesMappings.png" width=1000>
+
+### Reverse mappings
+
+We can also do reverse mappings, by starting from the description in the destination. This took a little bit more typing, but it worked.
+
+<img src="/content/ReverseMapping.png" width=1000>
+
+### Additional commands to try
+
+| Command             |
+| ------------------- |
+| What is the id of the source category with description 'Sex Codes'? |
+| Map the codes the source category with description 'Sex Codes' |
+| What is the description of the source category 'Hair Color Codes'? |
+| Map the codes the source category with description 'Hair Style Codes' | 
+| Map the codes the source category with description 'Hair Style Codes' |
+| Map the codes the source category with description 'Eye Color Codes' |
 
 ### Contact Info
 **Name:** Alessandro Federici
