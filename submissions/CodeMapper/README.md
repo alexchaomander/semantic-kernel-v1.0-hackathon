@@ -130,7 +130,7 @@ Once you do that, the secrets.json file of the project will look like this:
 ### Startup
 Once Code Mapper starts, the initial [code mapping prompt](ConsoleCodeMapper/FirstPrompt.md) will be sent to the application (green) which will then explain its plan for mapping codes (cyan).
 
-<img src="/content/Startup.png" width=1000>
+<img src="content/Startup.png" width=1000>
 
 ### Load and display the codes
 
@@ -138,7 +138,7 @@ We can run the commands ```display all source categories``` and ```display all d
 
 These commands make use of the methods of the [CodeMapperPlugin](/src/FreeMindLabs.SemanticKernel.Plugins.CodeMapper/CodeMapperPlugin.cs) to load the codes from the CSV files and display them in a table.
 
-<img src="/content/ListCodes.png" width=1000>
+<img src="content/ListCodes.png" width=1000>
 
 ### Get the ids of categories
 
