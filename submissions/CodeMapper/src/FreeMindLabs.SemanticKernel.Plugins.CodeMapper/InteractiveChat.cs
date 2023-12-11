@@ -78,14 +78,19 @@ public class InteractiveChat : IHostedService
             OpenAIPromptExecutionSettings openAIPromptExecutionSettings = new()
             {
                 FunctionCallBehavior = FunctionCallBehavior.AutoInvokeKernelFunctions,
+                //ChatSystemPrompt
                 //MaxTokens = 4000,
+                //Temperature
+                //TopP
             };
+            #region Alternative way
             //IAsyncEnumerable<StreamingChatMessageContent> result =
             //    chatCompletionService.GetStreamingChatMessageContentsAsync(
             //        chatMessages,
             //        executionSettings: openAIPromptExecutionSettings,
             //        kernel: this._kernel,
             //        cancellationToken: cancellationToken);
+            #endregion
 
             IAsyncEnumerable<StreamingChatMessageContent> result =
                 this._kernel.InvokeStreamingAsync<StreamingChatMessageContent>(
@@ -98,6 +103,7 @@ public class InteractiveChat : IHostedService
             // Print the chat completions
             ChatMessageContent? chatMessageContent = null;
 
+            // TODO: This should be a Mediatr event
             await this._eventHandler.BeginResponseAsync(cancellationToken).ConfigureAwait(false);
 
             await foreach (var content in result)
@@ -113,14 +119,14 @@ public class InteractiveChat : IHostedService
                         content.Metadata
                     );
                 }
-                //System.Console.Write(content.Content);
                 chatMessageContent!.Content += content.Content;
 
+                // TODO: This should be a Mediatr event
                 await this._eventHandler.AppendResponseAsync(content.Content, cancellationToken)
                     .ConfigureAwait(false);
 
             }
-            //System.Console.WriteLine();
+            // TODO: This should be a Mediatr event
             await this._eventHandler.EndResponseAsync(cancellationToken).ConfigureAwait(false);
 
             chatMessages.AddMessage(chatMessageContent!);

@@ -48,7 +48,6 @@ Id,CategoryId,CategoryDescription,Code,Description
 47,5,Incident Type Codes,DRUG4,Drug Activity Surveillance
 48,5,Incident Type Codes,DRUGOD,Drug Overdose
 49,5,Incident Type Codes,2501,Homicide
-,5,Incident Type Codes,MURD,Murder
 50,5,Incident Type Codes,2660,
 51,5,Incident Type Codes,18-3503-A(1)i,Criminal Trespass
 52,5,Incident Type Codes,ALRM,

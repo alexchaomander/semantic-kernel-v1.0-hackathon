@@ -1,8 +1,10 @@
 # Your goal
 You are going to produce a mapping between the codes of two systems: (source) and (destination).
-I will explain the data structures and other details below.
-Once you are done absorbing this information, explain your plan of action to me.
-Ask any questions that you might need.
+The remainder of this text will give you information and examples of the data you will be working with.
+At the end I will provide you with an action plan, for you to execute once I tell you to 'proceed'.
+
+Do not yet start to execute the action plan, but just absorb all the information and tell me what your plan is succintly.
+Provide a short sample result as well so we can be sure you match the format outlined below.
 
 ## Information on codes
 A code is a data structure that contains the following fields: 
@@ -14,6 +16,34 @@ A code is a data structure that contains the following fields:
 
 Each code belongs to a category.
 Each category can have multiple codes.
+
+## How do we map codes?
+Codes are mapped following this logic:
+
+1. For each of the categories in SourceCodes.csv    
+    1. Find the matching category in DestinationCodes.csv (refer to 'How do we map categories?' in this document)
+    1. Get all the codes of the source category
+    1. Get all the codes of the destination category
+        1. Find the matching code in the destination category  (refer to 'How do we map codes?' in this document)
+
+## How do we map categories?
+
+1. We semantically match them by description. For instance:
+    1. (source)'Eye Color Codes' is semantically similar to (destination) 'Eye Colors' or (destination) 'Codes for the eyes'
+    1. (source)'Eye Color Codes' is not semantically similar to (destination) 'Incident Types'.
+
+IMPORTANT: semantic meaning means that we can't just compare the strings, but we need to compare the meaning of the strings.
+
+## How do we map codes?
+
+1. We compare the field 'code' and see if there's a direct match.
+1. We semantically match them by description. For instance:
+    1. (source)'Blue' is semantically similar to (destination)'BLUE'
+    1. (source)'BLU' is not semantically similar to 'BURG' and 'DRUG
+
+IMPORTANT: 
+1. When processing a category's codes, codes should always be filtered by category id.
+2. We should never compare codes from different categories in (source) and (destination).
 
 ## Where to find the codes?
 1. The codes for the (source) system are in the file `SourceCodes.csv`
@@ -72,12 +102,14 @@ Id,CategoryId,CategoryDescription,Code,Description
 ### Example of a mapping referencing the source and destination code examples
 ```
 MappingId,SRC_Id,SRC_CategoryId,SRC_CategoryDescription,SRC_Code,SRC_Description,DEST_Id,DEST_CategoryId,DEST_CategoryDescription,DEST_Code,DEST_Description
-0001,4,2,Eye Color Codes,BLU,Blue,126,5,Color - Eyes,BLU,BLUE
-0002,6,2,Eye Color Codes,GRN,Green,,,,,
-0003,7,2,Eye Color Codes,GRY,Grey,129,5,Color - Eyes,GRY,GRAY
-0004,42,5,Incident Type Codes,BURG,Burglary,21,1,Incident Types,Burglary,Burglary
-0005,44,5,Incident Type Codes,DRUG1,Drug Possession,,,,,
-0006,1,1,Sex Codes,F,Female,78,2,Gender,F,Subject's gender reported as female
-0007,2,1,Sex Codes,M,Male,80,2,Gender,M,Subject's gender reported as male
-0008,3,1,Sex Codes,01,,,,,,
+0001,42,5,Incident Type Codes,BURG,Burglary,21,1,Incident Types,Burglary,Burglary
+0002,44,5,Incident Type Codes,DRUG1,Drug Possession,,,,,(UNMAPPED)
+0003,1,1,Sex Codes,F,Female,78,2,Gender,F,Subject's gender reported as female
+0004,2,1,Sex Codes,M,Male,80,2,Gender,M,Subject's gender reported as male
+0005,3,1,Sex Codes,01,,,,,,(UNMAPPED)
+0006,4,2,Eye Color Codes,BLU,Blue,126,5,Color - Eyes,BLU,BLUE
+0007,6,2,Eye Color Codes,GRN,Green,,,,,(UNMAPPED)
+0008,7,2,Eye Color Codes,GRY,Grey,129,5,Color - Eyes,GRY,GRAY
 ```
+
+**IMPORTANT**: when a code match is not possible, DEST_Description should contain the text '(UNMAPPED)', just as in the example above.

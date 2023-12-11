@@ -23,7 +23,7 @@ var builder = Host
     {
         logging.ClearProviders();
         logging.AddConsole();
-        logging.SetMinimumLevel(LogLevel.Debug);
+        logging.SetMinimumLevel(LogLevel.Warning);
     })
     .ConfigureServices((context, services) =>
     {

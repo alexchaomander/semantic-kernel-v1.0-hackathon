@@ -50,6 +50,11 @@ public class ConsoleEvents : IChatEvents
         Console.Write("User > ");
         string? ask = Console.ReadLine();
 
-        return Task.FromResult(ask ?? string.Empty);
+        if (string.IsNullOrWhiteSpace(ask))
+        {
+            return Task.FromResult("Proceed");
+        }
+
+        return Task.FromResult(ask);
     }
 }

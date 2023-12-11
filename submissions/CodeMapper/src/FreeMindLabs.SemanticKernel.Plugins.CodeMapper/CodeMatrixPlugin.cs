@@ -37,46 +37,26 @@ public class CodeMatrixPlugin
     }
 
     /// <inheritdoc />
-    [KernelFunction, Description(
-        "Loads a comma delimited file (csv) containing code categories. It returns a JSON array of categories.")]
-    public async Task<string> LoadCategoryCSVAsync(
-        [Description("The input file name. It cannot contain a path.")]
-        string fileName,
-        CancellationToken cancellationToken)
-    {
-        var categories = await this.LoadCSVAsync<CategoryItem>(fileName, cancellationToken).ConfigureAwait(false);
-
-        var json = this.SerializeToJson(categories);
-
-        this._logger!.LogDebug("***** {MethodName}({FileName})", nameof(LoadCategoryCSVAsync), fileName);
-
-        return json;
-    }
-
     /// <inheritdoc />
     [KernelFunction, Description(
-        "Returns the codes for the given category from a comma delimited file (csv) containing codes. " +
-        "It returns a JSON array of codes.")]
-    public async Task<string> GetCodesOfCategoryFromCSVAsync(
+        "Returns the categories used in the (csv) file containing codes. " +
+        "The result is a JSON array of categories with the fields: Id, Description.")]
+    public async Task<string> ReadCodesFromCSVAsync(
         [Description("The input file name. It cannot contain a path.")]
         string fileName,
-        [Description("The category identifier.")]
-        string categoryId,
+        [Description("n, optional filter for the category id. Setting this value to a valid category id will return just the codes of that category.")]
+        string? categoryId,
         CancellationToken cancellationToken)
     {
-        if (categoryId == "4")
-        { }
-
         var codes = await this.LoadCSVAsync<CodeItem>(fileName, cancellationToken).ConfigureAwait(false);
 
-        var filteredCodes = codes
-            .Where(c => c.CategoryId == categoryId)
+        var source = ((categoryId is null) ? codes : codes.Where(c => c.CategoryId == categoryId))
             .OrderBy(c => c.Id)
             .ToList();
 
-        var json = this.SerializeToJson(filteredCodes);
+        var json = this.SerializeToJson(source);
 
-        this._logger!.LogDebug("***** {MethodName} {FileName} {CategoryId}", nameof(GetCodesOfCategoryFromCSVAsync), fileName, categoryId);
+        this._logger!.LogDebug("Loaded codes from {FileName}", fileName);
 
         return json;
     }
@@ -84,8 +64,8 @@ public class CodeMatrixPlugin
     /// <inheritdoc />
     [KernelFunction, Description(
         "Returns the categories referenced in a csv file containing codes. " +
-        "It returns a JSON array of codes.")]
-    public async Task<string> GetCategoriesReferencedInCSVAsync(
+        "It returns a JSON array of categories with the fields: Id, Description.")]
+    public async Task<string> ReadCategoriesFromCSVAsync(
         [Description("The input file name.")]
         string fileName,
         CancellationToken cancellationToken)
@@ -102,7 +82,7 @@ public class CodeMatrixPlugin
 
         var json = this.SerializeToJson(categories);
 
-        this._logger!.LogDebug("***** {MethodName} {FileName}", nameof(GetCategoriesReferencedInCSVAsync), fileName);
+        this._logger!.LogDebug("Loaded categories from {FileName}", fileName);
 
         return json;
     }
@@ -110,7 +90,7 @@ public class CodeMatrixPlugin
     private async Task<IEnumerable<T>> LoadCSVAsync<T>(string fileName, CancellationToken cancellationToken)
         where T : class
     {
-        fileName = this.GetDataPath(fileName);
+        fileName = this.GetCorrectFileName(fileName);
 
         var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
@@ -126,7 +106,7 @@ public class CodeMatrixPlugin
             values.Add(record);
         }
 
-        this._logger!.LogDebug("***** Loaded {File}. {RecordCount} record(s) found.", fileName, values.Count);
+        this._logger!.LogDebug("Loaded CSV {FileName}. {RecordCount} record(s).", fileName, values.Count);
 
         return values;
     }
@@ -143,10 +123,15 @@ public class CodeMatrixPlugin
         return json;
     }
 
-    private string GetDataPath(string fileName)
+    private string GetCorrectFileName(string fileName)
     {
-        var path = Path.Combine("Data", fileName);
+        var fullName = Path.Combine("Data", fileName);
+        fullName = Path.ChangeExtension(fullName, ".csv");
+        if (!File.Exists(fullName))
+        {
+            throw new FileNotFoundException($"File not found: {fullName}");
+        }
 
-        return path;
+        return fullName;
     }
 }
