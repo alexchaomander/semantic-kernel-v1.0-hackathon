@@ -145,20 +145,20 @@ These commands make use of the methods of the [CodeMapperPlugin](/src/FreeMindLa
 We can get the id of a category by searching by its description.
 ```What is the id of the source category with description 'Sex Codes'?```
 
-<img src="/content/IdLookupByDescription.png" width=1000>
+<img src="content/IdLookupByDescription.png" width=1000>
 
 ### Do the mapping of codes
 
 Mapping codes is as simple as sending a command like:
 ``` Map the codes the source category with description 'Sex Codes'```
 
-<img src="/content/SexCodesMappings.png" width=1000>
+<img src="content/SexCodesMappings.png" width=1000>
 
 ### Reverse mappings
 
 We can also do reverse mappings, by starting from the description in the destination. This took a little bit more typing, but it worked.
 
-<img src="/content/ReverseMapping.png" width=1000>
+<img src="content/ReverseMapping.png" width=1000>
 
 ### Additional commands to try
 
