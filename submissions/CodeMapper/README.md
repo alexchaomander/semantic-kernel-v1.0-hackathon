@@ -1,4 +1,4 @@
-# Code Mapper
+# Code Mapper - A Semantic Kernel Hackathon Project
 
 Code Mapper is an application that uses artificial intelligence to map list of lookup codes from two separate systems.
 Such mappings are often needed when integrating systems or migrating data from a system to another.
@@ -172,6 +172,7 @@ We can also do reverse mappings, by starting from the description in the destina
 | Map the codes the source category with description 'Eye Color Codes' |
 
 ### Contact Info
-**Name:** Alessandro Federici
 
+**Name:** Alessandro Federici
+**Company:** Free Mind Labs, inc.
 **Email:** alef@freemindlabs.com
