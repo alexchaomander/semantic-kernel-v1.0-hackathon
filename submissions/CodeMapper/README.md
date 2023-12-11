@@ -82,19 +82,19 @@ Code Mapper uses a combination of machine learning and natural language processi
 
 In order to map codes, we need the following:
 
-1. The Semantic Kernel plugin [CodeMapperPlugin](/src/FreeMindLabs.SemanticKernel.Plugins.CodeMapper/CodeMapperPlugin.cs) that:
+1. The Semantic Kernel plugin [CodeMapperPlugin](src/FreeMindLabs.SemanticKernel.Plugins.CodeMapper/CodeMapperPlugin.cs) that:
     1. Can load data from CSV files
     1. Can extract categories and codes from such files with some filtering options
         1. The files containing codes could be very large and will likely overflow the maximum amount of tokens we can use in a prompt.
         
-1. A [prompt](ConsoleCodeMapper/FirstPrompt.md) that explains how to map codes and that includes sample data.
+1. A [prompt](src/ConsoleCodeMapper/FirstPrompt.md) that explains how to map codes and that includes sample data.
     1. The prompt is written in Markdown, so it can be easily edited and viewed.
       
 1. Data to map:
     1. The user prepares two CSV files containing the source codes and destination codes.
         1. These files need to be placed in the ```\Data``` subfolder, for the app to have access to them.
-            1. Check [SourceCodes.csv](/ConsoleCodeMapper/Data/SourceCodes.csv) to see all the codes in the source system.
-            1. Check [DestinationCodes.csv](/ConsoleCodeMapper/Data/DestinationCodes.csv) to see all the codes in the destination system.            
+            1. Check [SourceCodes.csv](src/ConsoleCodeMapper/Data/SourceCodes.csv) to see all the codes in the source system.
+            1. Check [DestinationCodes.csv](src/ConsoleCodeMapper/Data/DestinationCodes.csv) to see all the codes in the destination system.            
 
 ### Configuration
 
@@ -128,7 +128,7 @@ Once you do that, the secrets.json file of the project will look like this:
 ## Running Code Mapper
 
 ### Startup
-Once Code Mapper starts, the initial [code mapping prompt](ConsoleCodeMapper/FirstPrompt.md) will be sent to the application (green) which will then explain its plan for mapping codes (cyan).
+Once Code Mapper starts, the initial [code mapping prompt](src/ConsoleCodeMapper/FirstPrompt.md) will be sent to the application (green) which will then explain its plan for mapping codes (cyan).
 
 <img src="content/Startup.png" width=1000>
 
