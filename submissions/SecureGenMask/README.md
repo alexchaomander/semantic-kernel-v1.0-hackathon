@@ -26,6 +26,7 @@ SecureGenMask is a designed to enhance data privacy and security in the realm of
 
 ## Screenshots
 
+<img width="1440" alt="Screenshot 2023-12-10 at 5 19 57 PM" src="https://github.com/adesokanayo/semantic-kernel-v1.0-hackathon/assets/5377446/a89243cc-b876-4587-bc3c-57eecaff019d">
 
 
 ## Use Cases
