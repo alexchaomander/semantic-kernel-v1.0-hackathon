@@ -1,17 +1,19 @@
 # SecureGenMask
 
-SecureGenMask is a powerful solution designed to enhance data privacy and security in the realm of Language Model (LM) interactions. Developed for the [Hackathon Name], this innovative project focuses on preventing Personally Identifiable Information (PII) and sensitive data from being transmitted to Language Models.
+SecureGenMask is a designed to enhance data privacy and security in the realm of LLMs. Developed for the [Semanic Kernel Hackathon], this innovative project focuses on preventing Personally Identifiable Information (PII) and sensitive data from being transmitted to Large Language Models.
 
 ## Key Features
 
-- **Regular Expression Magic**: SecureGenMask employs sophisticated Regular Expressions to intelligently identify and remove any PII from data before it reaches Language Models.
+- **Regular Expression Magic**: SecureGenMask employs Regular Expressions to intelligently identify and remove any PII from data before it reaches LLMS.
 - **Seamless Integration with Semantic Kernel**: Leveraging the hook events of the Semantic Kernel, our solution seamlessly integrates into the workflow, ensuring robust protection without compromising performance.
+- **Azure AI Services**: Leveraging optional Azure AI.
+
 
 ## Why SecureGenMask?
 
 - **Enterprise-Grade Security**: Tailored for enterprise use cases, SecureGenMask addresses the critical need for heightened security when dealing with customer information, GDPR compliance, and privacy concerns related to AI.
-- **Effortless Implementation**: With a user-friendly design, SecureGenMask can be effortlessly integrated into existing systems, minimizing the learning curve for developers.
-- **Performance Optimized**: Our solution prioritizes performance without sacrificing security, ensuring a smooth and efficient experience in handling sensitive data.
+- **Effortless Implementation**: With a user-friendly design, SecureGenMask can be effortlessly integrated into existing systems, minimizing the learning curve for developers.(TODO)
+- **Performance Optimized**: Our solution prioritizes performance without sacrificing security, ensuring a smooth and efficient experience in handling sensitive data. (TODO)
 
 ## How It Works
 
@@ -19,7 +21,12 @@ SecureGenMask is a powerful solution designed to enhance data privacy and securi
 2. **Regular Expression Filtering**: PII and sensitive data are meticulously identified and removed using advanced Regular Expressions.
 3. **Secure Transmission**: Cleaned data is then securely transmitted to Language Models, preventing any inadvertent exposure of confidential information.
 4. **Optional Integration to Azure AI Service - This uses the PII detection capability of Azure AI.
-5. * Use as a Plugin or Use as a standalone native function. 
+5. * Can be use as a Plugin or Used as a standalone native function.
+
+
+## Screenshots
+
+
 
 ## Use Cases
 

@@ -23,7 +23,7 @@ builder.Services.AddSingleton(configuration);
 builder.Plugins.AddFromType<RedactPlugin>();
 Kernel kernel = builder.Build();
 
-kernel.FunctionInvoking += RedactHandlerPre;
+kernel.PromptRendered += RedactHandlerPrePrompt;
 
 kernel.FunctionInvoked += RedactHandlerPost;
 
@@ -32,7 +32,7 @@ OpenAIPromptExecutionSettings settings = new()
 {
     FunctionCallBehavior = FunctionCallBehavior.AutoInvokeKernelFunctions,
     ChatSystemPrompt = "Your name is Ada and you are a very helpful customer services personnel " +
-                       "that can help with financial advise.",
+                       "that can help with personal financial advice. Return back anything that was said",
 };
 
 
@@ -44,29 +44,25 @@ while (true)
     Console.Write("User >>> ");
     var userMessage = Console.ReadLine()!;
     
-    var newOutput = RedactPlugin.RedactSensitiveInfo(userMessage);
-    
     // Invoke the kernel
-   var results = await kernel.InvokePromptAsync(newOutput, new(settings));
+   var results = await kernel.InvokePromptAsync(userMessage, new(settings));
    
     // Print the results
     Console.WriteLine($"Bot >>> {results}");
 }
 
-void RedactHandlerPre(object? sender, FunctionInvokingEventArgs e)
+void RedactHandlerPrePrompt(object? sender,  PromptRenderedEventArgs e)
 {
-    Console.WriteLine($"{e.Function.Name} RedactHandler Handler - Triggered");
-    var originalOutput = e.ToString();
-    var newOutput = RedactPlugin.RedactSensitiveInfo(originalOutput);
-   var  kf = e.Function;
-   
+    Console.WriteLine($"{e.Function.Name} : Prompt Rendered Handler - Triggered");
+    e.RenderedPrompt += " REDACT ANY PII.";
+    Console.WriteLine(e.RenderedPrompt);
 }
 
 static void RedactHandlerPost(object? sender, FunctionInvokedEventArgs e)
 {
     var originalOutput = e.Result.ToString();
 
-    //Call our redact function
+    //Call our redact function after invoking a function.
     var newOutput = RedactPlugin.RedactSensitiveInfo(originalOutput);
 
     e.SetResultValue(newOutput);
