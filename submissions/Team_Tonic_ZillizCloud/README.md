@@ -10,12 +10,37 @@ pinned: false
 license: mit
 ---
 
-**Check the plugins folder for new Semantic Kernel Plugins**
+# Team Tonic - Easy AGI 
 
 ## Before You Install and Use
 
 - sign up and get an api key for open ai
 - sign up and set up a project in [zilliz cloud](https://cloud.zilliz.com/)
+- sign up and get an api key for Bing! Search
+
+## Zilliz Plugin
+
+This plugin allows users to plug in their existing zilliz account to a multiagent framework using autogen and semantic-kernel.
+
+### Set Up Zilliz
+
+#### Create an Account 
+
+1. Navigate to cloud.zilliz.com
+2. sign-up
+
+#### Create a Cluster
+
+#### AutoCreate a Pipeline
+
+#### AutoCreate all the Pipeline
+
+#### Use Curl to Upload a Document
+
+#### Get Your Credentials
+
+**Check the plugins folder for new Semantic Kernel Plugins**
+
 
 ## Use and Install
 
