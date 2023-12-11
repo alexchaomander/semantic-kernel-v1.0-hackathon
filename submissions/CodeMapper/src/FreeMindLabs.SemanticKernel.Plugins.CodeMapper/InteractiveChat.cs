@@ -10,9 +10,12 @@ namespace FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 
 /// <summary>
 /// This is the main application service.
-/// This takes console input, then sends it to the configured AI service, and then prints the response.
+/// This takes input from the user using <see cref="IChatEvents" /> and sends it to the OpenAI chat model.
 /// All conversation history is maintained in the chat history.
 /// </summary>
+/// <remarks>
+/// Heavily inspired by [Semantic Kernel Starters](https://github.com/microsoft/semantic-kernel-starters/tree/main)
+/// </remarks>
 public class InteractiveChat : IHostedService
 {
     private readonly Kernel _kernel;
@@ -20,9 +23,17 @@ public class InteractiveChat : IHostedService
     private readonly IHostApplicationLifetime _lifeTime;
     private KernelFunction _prompt;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InteractiveChat"/> class.
+    /// </summary>
+    /// <param name="kernel"></param>
+    /// <param name="eventHandler"></param>
+    /// <param name="lifeTime"></param>
     public InteractiveChat(Kernel kernel, IChatEvents eventHandler, IHostApplicationLifetime lifeTime)
     {
-        // Load prompt from resource        
+        // TODO: Is my yaml file any good?
+
+        // Load prompt from resource
         var yaml = File.ReadAllText($"prompts/{this.GetType().Name}.yaml");
         this._prompt = kernel.CreateFunctionFromPromptYaml(
             text: yaml,
@@ -61,14 +72,17 @@ public class InteractiveChat : IHostedService
 
         while (!cancellationToken.IsCancellationRequested)
         {
+            // Gets the user input using the event handler
             string ask;
             if (!initialPromptSent)
             {
                 initialPromptSent = true;
+                // TODO: This should be using Mediatr
                 ask = await this._eventHandler.GetInitialPromptAsync(cancellationToken).ConfigureAwait(false);
             }
             else
             {
+                // TODO: This should be using Mediatr
                 ask = await this._eventHandler.GetAskAsync(cancellationToken).ConfigureAwait(false);
             }
 
@@ -84,6 +98,7 @@ public class InteractiveChat : IHostedService
                 //TopP
             };
             #region Alternative way
+            // This is how it was originally done in the SK starter
             //IAsyncEnumerable<StreamingChatMessageContent> result =
             //    chatCompletionService.GetStreamingChatMessageContentsAsync(
             //        chatMessages,
@@ -121,12 +136,12 @@ public class InteractiveChat : IHostedService
                 }
                 chatMessageContent!.Content += content.Content;
 
-                // TODO: This should be a Mediatr event
+                // TODO: This should be using Mediatr
                 await this._eventHandler.AppendResponseAsync(content.Content, cancellationToken)
                     .ConfigureAwait(false);
 
             }
-            // TODO: This should be a Mediatr event
+            // TODO: This should be using Mediatr
             await this._eventHandler.EndResponseAsync(cancellationToken).ConfigureAwait(false);
 
             chatMessages.AddMessage(chatMessageContent!);

@@ -28,7 +28,7 @@ var builder = Host
     .ConfigureServices((context, services) =>
     {
         services.AddHostedService<InteractiveChat>();
-        services.AddSingleton<IChatEvents, ConsoleEvents>();
+        services.AddSingleton<IChatEvents, ConsoleCodeMapper.ConsoleEvents>();
 
         var apiKey = context.Configuration["OpenAI:ApiKey"]!;
         var chatModelId = context.Configuration["OpenAI:ChatModelId"]!;
@@ -36,7 +36,7 @@ var builder = Host
         var kbuilder = KernelExtensions
             // By using AddKernel we instantiate a KernelBuilder that uses the app's service collection.
             // Note: Pretty much any other way to do things results in two separare service collections and service providers
-            // that need the same configuration. See notes for some pseudo-code.
+            // that need the same configuration.
             .AddKernel(services)
             .AddOpenAIChatCompletion(modelId: chatModelId, apiKey: apiKey)
             .Plugins.AddFromType<CodeMapperPlugin>();

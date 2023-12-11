@@ -11,14 +11,14 @@
     <None Remove="DestinationCategories.csv" />
     <None Remove="DestinationCodes.csv" />
     <None Remove="DestinationCodes.full.csv" />
-    <None Remove="prompts\InteractiveChat.yaml" />
+    <None Remove="Prompts\InteractiveChat.yaml" />
     <None Remove="SourceCategories.csv" />
     <None Remove="SourceCodes.csv" />
     <None Remove="~%24CodeMatrixData.xlsx" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="prompts\InteractiveChat.yaml">
+    <Content Include="Prompts\InteractiveChat.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

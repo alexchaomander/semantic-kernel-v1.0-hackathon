@@ -1,8 +1,0 @@
-1. What is the id of the source category with description 'Sex Codes'?
-1. Map the codes the source category with description 'Sex Codes'
-
-1. What is the description of the source category 'Hair Color Codes'?
-1. Map the codes the source category with description 'Hair Style Codes'
-
-1. Map the codes the source category with description 'Hair Style Codes'
-1. Map the codes the source category with description 'Eye Color Codes'

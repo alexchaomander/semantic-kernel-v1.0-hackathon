@@ -1,6 +1,8 @@
 ﻿// Semantic Kernel Hackathon 2 - Code Mapper by Free Mind Labs.
 
-namespace FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
+using FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
+
+namespace ConsoleCodeMapper;
 
 /// <inheritdoc/> 
 public class ConsoleEvents : IChatEvents

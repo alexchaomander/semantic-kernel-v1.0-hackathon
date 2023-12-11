@@ -5,31 +5,38 @@ using System.Globalization;
 using System.Text.Json;
 using CsvHelper;
 using CsvHelper.Configuration;
+using FreeMindLabs.SemanticKernel.Plugins.CodeMapper.model;
+using FreeMindLabs.SemanticKernel.Plugins.CodeMapper.Model;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 
 namespace FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 
-/// <inheritdoc />
+/// <summary>
+/// A Semantic Kernel plugin with functions to read codes from a csv file.
+/// </summary>
 public class CodeMapperPlugin
 {
     private readonly ILogger<CodeMapperPlugin>? _logger;
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CodeMapperPlugin"/> class.
+    /// </summary>
+    /// <param name="logger"></param>
+    /// <exception cref="ArgumentNullException"></exception>
     public CodeMapperPlugin(ILogger<CodeMapperPlugin> logger)
     {
         this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    /// <inheritdoc />
-    /// <inheritdoc />
+    /// <inheritdoc/>
     [KernelFunction, Description(
         "Returns the categories used in the (csv) file containing codes. " +
         "The result is a JSON array of categories with the fields: Id, Description.")]
     public async Task<string> ReadCodesFromCSVAsync(
         [Description("The input file name. It cannot contain a path.")]
         string fileName,
-        [Description("n, optional filter for the category id. Setting this value to a valid category id will return just the codes of that category.")]
+        [Description("An optional filter for the category id. Setting this value to a valid category id will return just the codes of that category.")]
         string? categoryId,
         CancellationToken cancellationToken)
     {
@@ -46,12 +53,12 @@ public class CodeMapperPlugin
         return json;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc/>
     [KernelFunction, Description(
         "Returns the categories referenced in a csv file containing codes. " +
         "It returns a JSON array of categories with the fields: Id, Description.")]
     public async Task<string> ReadCategoriesFromCSVAsync(
-        [Description("The input file name.")]
+        [Description("The input file name. It cannot contain a path.")]
         string fileName,
         CancellationToken cancellationToken)
     {

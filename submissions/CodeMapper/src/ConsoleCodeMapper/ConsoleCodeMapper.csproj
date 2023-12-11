@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\FreeMindLabs.SemanticKernel.Plugins.CodeMapper\FreeMindLabs.SemanticKernel.Plugins.CodeMapper.csproj" />
+    <ProjectReference Include="..\FreeMindLabs.SemanticKernel.Plugins.CodeMapper\FreeMindLabs.SemanticKernel.Plugins.CodeMapper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
