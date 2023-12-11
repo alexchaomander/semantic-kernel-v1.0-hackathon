@@ -1,7 +1,9 @@
 # This is your amazing submission for the SK Hackathon!
 
 ## Describe your plugin here
-This plugin generates and executes neo4j cypher queries based on user prompt.
+This plugin generates and executes neo4j cypher queries based on user prompt. 
+The goal of this plugin is to enable querying knowledge graphs allowing complex using dynamic query generation which can provide business personnel
+a chat based way to explore large data graphs
 
 On initialization the specified neo4j database is queried to generate a text representation of the schema which is passed in the system message for any IChatCompletion Service
 
