@@ -39,7 +39,7 @@ var builder = Host
             // that need the same configuration. See notes for some pseudo-code.
             .AddKernel(services)
             .AddOpenAIChatCompletion(modelId: chatModelId, apiKey: apiKey)
-            .Plugins.AddFromType<CodeMatrixPlugin>();
+            .Plugins.AddFromType<CodeMapperPlugin>();
     });
 
 // Build and run the host. This keeps the app running using the HostedService.

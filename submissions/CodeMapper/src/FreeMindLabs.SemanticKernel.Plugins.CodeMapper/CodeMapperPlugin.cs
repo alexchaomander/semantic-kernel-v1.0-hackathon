@@ -10,28 +10,13 @@ using Microsoft.SemanticKernel;
 
 namespace FreeMindLabs.SemanticKernel.Plugins.CodeMapper;
 
-public class CategoryItem
-{
-    public string Id { get; set; }
-    public string Description { get; set; }
-}
-
-public class CodeItem
-{
-    public string Id { get; set; }
-    public string CategoryId { get; set; }
-    public string CategoryDescription { get; set; }
-    public string Code { get; set; }
-    public string Description { get; set; }
-}
-
 /// <inheritdoc />
-public class CodeMatrixPlugin
+public class CodeMapperPlugin
 {
-    private readonly ILogger<CodeMatrixPlugin>? _logger;
+    private readonly ILogger<CodeMapperPlugin>? _logger;
 
     /// <inheritdoc />
-    public CodeMatrixPlugin(ILogger<CodeMatrixPlugin> logger)
+    public CodeMapperPlugin(ILogger<CodeMapperPlugin> logger)
     {
         this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
