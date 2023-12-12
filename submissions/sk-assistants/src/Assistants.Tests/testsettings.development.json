@@ -1,0 +1,12 @@
+{
+  "AzureOpenAIEndpoint": "https://copichat-yuwt7vgwiz3ug.openai.azure.com/",
+  "AzureOpenAIAPIKey": "13a88ab9d6b14537a3a3238350636ead",
+  "AzureOpenAIDeploymentName": "gpt-35-turbo-1106",
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning",
+      "Microsoft.SemanticKernel.Planning.*": "Warning",
+      "SemanticKernel.Experimental.Assistants.Thread": "Information"
+    }
+  }
+}
