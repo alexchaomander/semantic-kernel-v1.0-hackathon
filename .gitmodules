@@ -1,0 +1,3 @@
+[submodule "submissions/sk-gorilla-cli-plugin"]
+	path = submissions/sk-gorilla-cli-plugin
+	url = https://github.com/twilwa/sk-gorilla-cli-plugin
