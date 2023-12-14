@@ -1,0 +1,135 @@
+Id,CategoryId,CategoryDescription,Code,Description
+1,1,Incident Types,Abandoned Auto,Abandoned Auto
+2,1,Incident Types,Abduction_Kidnapping,Abduction_Kidnapping
+3,1,Incident Types,Accident Conditions Unknown,Accident Conditions Unknown
+4,1,Incident Types,Accident Hit And Run Injury,Accident Hit And Run Injury
+5,1,Incident Types,Accident Hit And Run Property,Accident Hit And Run Property
+6,1,Incident Types,Accident Personal Injury,Accident Personal Injury
+7,1,Incident Types,Accident Property Damage,Accident Property Damage
+8,1,Incident Types,Agressive Driver,Agressive Driver
+9,1,Incident Types,Alarm,Alarm
+10,1,Incident Types,Animal Complaint,Animal Complaint
+11,1,Incident Types,Arson,Arson
+12,1,Incident Types,Assault Aggravated,Assault Aggravated
+13,1,Incident Types,Assault Simple,Assault Simple
+14,1,Incident Types,Assist Citizen,Assist Citizen
+15,1,Incident Types,Assist Fire_Medics,Assist Fire_Medics
+16,1,Incident Types,Assist Outside Agency,Assist Outside Agency
+17,1,Incident Types,Bad Check-Forgery,Bad Check-Forgery
+18,1,Incident Types,Bolo,Bolo
+19,1,Incident Types,Bomb Threat,Bomb Threat
+20,1,Incident Types,Boot Removal,Boot Removal
+21,1,Incident Types,Burglary,Burglary
+22,1,Incident Types,Carjacking,Carjacking
+23,1,Incident Types,City Property Damage,City Property Damage
+24,1,Incident Types,Credit Card Fraud,Credit Card Fraud
+25,1,Incident Types,Destruction,Destruction
+26,1,Incident Types,Disabled Motorist,Disabled Motorist
+27,1,Incident Types,Disorderly Conduct,Disorderly Conduct
+28,1,Incident Types,Domestic Violence,Domestic Violence
+29,1,Incident Types,Drug Complaint,Drug Complaint
+30,1,Incident Types,Drunk Driver,Drunk Driver
+31,1,Incident Types,E911 911 Hang Up,E911 911 Hang Up
+32,1,Incident Types,Embezzlement,Embezzlement
+33,1,Incident Types,Escort,Escort
+34,1,Incident Types,False Pretense_Swindle_Confidence,False Pretense_Swindle_Confidence
+35,1,Incident Types,Fight,Fight
+36,1,Incident Types,Gambling,Gambling
+37,1,Incident Types,Grand Larceny Auto,Grand Larceny Auto
+38,1,Incident Types,Grand Larceny Auto Recovery,Grand Larceny Auto Recovery
+39,1,Incident Types,Hazard,Hazard
+40,1,Incident Types,Homicide,Homicide
+41,1,Incident Types,Hostage_Barricade Situation,Hostage_Barricade Situation
+42,1,Incident Types,Identity Fraud,Identity Fraud
+43,1,Incident Types,Impersonating Police Officer,Impersonating Police Officer
+44,1,Incident Types,Intelligence Activity,Intelligence Activity
+45,1,Incident Types,Intoxicated Subject,Intoxicated Subject
+46,1,Incident Types,Larceny,Larceny
+47,1,Incident Types,Lockout,Lockout
+48,1,Incident Types,Loud Party,Loud Party
+49,1,Incident Types,Missing Person,Missing Person
+50,1,Incident Types,Noise Violation,Noise Violation
+51,1,Incident Types,Parking Complaint,Parking Complaint
+52,1,Incident Types,Police Information,Police Information
+53,1,Incident Types,Property Found,Property Found
+54,1,Incident Types,Property Lost,Property Lost
+55,1,Incident Types,Prostitution,Prostitution
+56,1,Incident Types,Protective Order Issued,Protective Order Issued
+57,1,Incident Types,Prowler_Peeping Tom,Prowler_Peeping Tom
+58,1,Incident Types,Public Service,Public Service
+59,1,Incident Types,Robbery,Robbery
+60,1,Incident Types,Runaway,Runaway
+61,1,Incident Types,Sexual Offense,Sexual Offense
+62,1,Incident Types,Shoplifting,Shoplifting
+63,1,Incident Types,Stalking,Stalking
+64,1,Incident Types,Subject Stop,Subject Stop
+65,1,Incident Types,Suicide,Suicide
+66,1,Incident Types,Suspicious Event,Suspicious Event
+67,1,Incident Types,Suspicious Package_Substance,Suspicious Package_Substance
+68,1,Incident Types,Telephone Complaint,Telephone Complaint
+69,1,Incident Types,Test Call,Test Call
+70,1,Incident Types,Traffic Complaint,Traffic Complaint
+71,1,Incident Types,Traffic Stop,Traffic Stop
+72,1,Incident Types,Trespassing,Trespassing
+73,1,Incident Types,Trouble Unknown,Trouble Unknown
+74,1,Incident Types,Trouble Unknown_Officer Needs Assistance,Trouble Unknown_Officer Needs Assistance
+75,1,Incident Types,Warrant Issued,Warrant Issued
+76,1,Incident Types,Warrant Service,Warrant Service
+77,1,Incident Types,Weapon Violation,Weapon Violation
+78,2,Gender,F,Subject's gender reported as female
+79,2,Gender,G,"Occupation or charge indicated ""Male Impersonator"""
+80,2,Gender,M,Subject's gender reported as male
+81,2,Gender,N,"Occupation or charge indicated ""Female Impersonator"" or transvestite"
+82,2,Gender,X,Unknown gender
+83,2,Gender,Y,"Male name, no gender given"
+84,2,Gender,Z,"Female name, no gender given"
+85,3,Hair Style,AFRO,Afro
+86,3,Hair Style,AFRO_NATURAL,Afro_Natural
+87,3,Hair Style,BRAIDED,Braided
+88,3,Hair Style,BUSHY,Bushy
+89,3,Hair Style,BUTCH,Butch
+90,3,Hair Style,COMBED BACK,Combed Back
+91,3,Hair Style,CREW CUT,Crew Cut
+92,3,Hair Style,CURLERS,Curlers
+93,3,Hair Style,CURLY,Curly
+94,3,Hair Style,CURLY_WAVY,Curly_Wavy
+95,3,Hair Style,DREADLOCKS,Dreadlocks
+96,3,Hair Style,FADE,Fade
+97,3,Hair Style,GREASY,Greasy
+98,3,Hair Style,HAIR NET,Hair Net
+99,3,Hair Style,JHERI CURL,Jheri Curl
+100,3,Hair Style,MILITARY_FLAT TOP,Military_Flat Top
+101,3,Hair Style,MULLET,Mullet
+102,3,Hair Style,NATURAL,Natural
+103,3,Hair Style,PONY TAIL,Pony Tail
+104,3,Hair Style,PROCESSED,Processed
+105,3,Hair Style,PUNKY,Punky
+106,3,Hair Style,SHAVED HEAD,Shaved Head
+107,3,Hair Style,STRAIGHT,Straight
+108,3,Hair Style,UNKNOWN,Unknown
+109,3,Hair Style,WAVY,Wavy
+110,3,Hair Style,WIG_HAIR PIECE,Wig_Hair Piece
+111,4,Color - Hair,BLD,Bald
+112,4,Color - Hair,BLK,Black
+113,4,Color - Hair,BLN,Blond or strawberry
+114,4,Color - Hair,BLU,Blue
+115,4,Color - Hair,BRO,Brown
+116,4,Color - Hair,GRY,Gray or partially gray
+117,4,Color - Hair,GRN,Green
+118,4,Color - Hair,ONG,Orange
+119,4,Color - Hair,PNK,Pink
+120,4,Color - Hair,PLE,Purple
+121,4,Color - Hair,RED,Red or auburn
+122,4,Color - Hair,SDY,Sandy
+123,4,Color - Hair,WHI,White
+124,4,Color - Hair,XXX,Unknown
+125,5,Color - Eyes,BLK,BLACK
+126,5,Color - Eyes,BLU,BLUE
+127,5,Color - Eyes,BRO,BROWN
+128,5,Color - Eyes,GRN,GREEN
+129,5,Color - Eyes,GRY,GRAY
+130,5,Color - Eyes,HAZ,HAZEL
+131,5,Color - Eyes,MAR,MAROON
+132,5,Color - Eyes,MUL,MULTICOLORED
+133,5,Color - Eyes,PNK,PINK
+134,5,Color - Eyes,XXX,UNKNOWN

@@ -1,0 +1,55 @@
+Id,CategoryId,CategoryDescription,Code,Description
+1,1,Sex Codes,F,Female
+2,1,Sex Codes,M,Male
+3,1,Sex Codes,01,
+4,2,Eye Color Codes,BLU,Blue
+5,2,Eye Color Codes,BRO,Brown
+6,2,Eye Color Codes,GRN,Green
+7,2,Eye Color Codes,GRY,Grey
+8,2,Eye Color Codes,He has light red eyes,He has light red eyes
+9,2,Eye Color Codes,HAZ,Hazel
+10,2,Eye Color Codes,H,Haz
+11,2,Eye Color Codes,PNK,Pink
+12,2,Eye Color Codes,P,P
+13,2,Eye Color Codes,B,B
+14,3,Hair Color Codes,AUB,Auburn
+15,3,Hair Color Codes,BLK,Black
+16,3,Hair Color Codes,BLN,Blonde
+17,3,Hair Color Codes,BL,
+18,3,Hair Color Codes,YEL,Yellow
+19,3,Hair Color Codes,BRO,Brown
+20,3,Hair Color Codes,CHS,Chestnut
+21,3,Hair Color Codes,CHEST,
+22,3,Hair Color Codes,GRY,Grey
+23,3,Hair Color Codes,MUL,Multicolor
+24,3,Hair Color Codes,PNK,Pink
+25,3,Hair Color Codes,RED,Red
+26,3,Hair Color Codes,SANDY,Sandy
+27,3,Hair Color Codes,WHT,White
+28,4,Hair Style Codes,BOX,Boxtop
+29,4,Hair Style Codes,CU,Curly
+30,4,Hair Style Codes,CURL,Curly
+31,4,Hair Style Codes,DR,Dreadlocks
+32,4,Hair Style Codes,HT,"Hightop, Boxtop"
+33,4,Hair Style Codes,COL,Coiled
+34,4,Hair Style Codes,MIDB,Mid Back Length
+35,4,Hair Style Codes,SHL,Shoulder Length
+36,4,Hair Style Codes,ST,Straight
+37,4,Hair Style Codes,STR,Striaght
+38,4,Hair Style Codes,WV,Wavy
+39,4,Hair Style Codes,W,
+40,4,Hair Style Codes,$,$
+41,5,Incident Type Codes,CFS,Call for service
+42,5,Incident Type Codes,BURG,Burglary
+43,5,Incident Type Codes,Burglary,Burglary
+44,5,Incident Type Codes,DRUG1,Drug Possession
+45,5,Incident Type Codes,DRUG2,Drug Sales
+46,5,Incident Type Codes,DRUG3,Found Drugs
+47,5,Incident Type Codes,DRUG4,Drug Activity Surveillance
+48,5,Incident Type Codes,DRUGOD,Drug Overdose
+49,5,Incident Type Codes,2501,Homicide
+50,5,Incident Type Codes,2660,
+51,5,Incident Type Codes,18-3503-A(1)i,Criminal Trespass
+52,5,Incident Type Codes,ALRM,
+53,5,Incident Type Codes,FALRM,
+54,5,Incident Type Codes,TRAF,Traffic Stop

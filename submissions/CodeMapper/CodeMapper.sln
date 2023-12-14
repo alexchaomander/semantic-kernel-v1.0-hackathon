@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34310.174
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeMindLabs.SemanticKernel.Plugins.CodeMapper", "src\FreeMindLabs.SemanticKernel.Plugins.CodeMapper\FreeMindLabs.SemanticKernel.Plugins.CodeMapper.csproj", "{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{DEFCBBB2-0053-4A7D-89DC-38C59501B37C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		code-analysis.props = code-analysis.props
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{98A25CEE-3153-4E2C-902E-C27B6D1E97C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{ABFDD2F0-B988-46E1-A4F6-42CEABCE6E22}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleCodeMapper", "src\ConsoleCodeMapper\ConsoleCodeMapper.csproj", "{C5BCB4A9-A07E-4156-818D-3FAC1A928D06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5BCB4A9-A07E-4156-818D-3FAC1A928D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5BCB4A9-A07E-4156-818D-3FAC1A928D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5BCB4A9-A07E-4156-818D-3FAC1A928D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5BCB4A9-A07E-4156-818D-3FAC1A928D06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{484E60F4-C9C8-4E16-A1C4-6A7DCC312F23} = {98A25CEE-3153-4E2C-902E-C27B6D1E97C0}
+		{C5BCB4A9-A07E-4156-818D-3FAC1A928D06} = {ABFDD2F0-B988-46E1-A4F6-42CEABCE6E22}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0BBEE898-46D7-4708-811C-FCF0DF2C48F2}
+	EndGlobalSection
+EndGlobal
