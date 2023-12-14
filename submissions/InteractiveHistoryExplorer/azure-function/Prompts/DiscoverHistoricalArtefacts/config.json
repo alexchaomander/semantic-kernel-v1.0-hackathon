@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "description": "Construct a narrative around the discovery of a historical artifact",
+  "type": "completion",
+  "completion": {
+    "max_tokens": 300,
+    "temperature": 0.7
+  },
+  "input": {
+    "parameters": [
+      {
+        "name": "input",
+        "description": "Name of the historical artifact",
+        "defaultValue": ""
+      }
+    ]
+  }
+}

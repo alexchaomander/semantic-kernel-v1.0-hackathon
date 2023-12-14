@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "description": "Create an interactive story based on a historical event",
+  "type": "completion",
+  "completion": {
+    "max_tokens": 300,
+    "temperature": 0.7
+  },
+  "input": {
+    "parameters": [
+      {
+        "name": "input",
+        "description": "Name of the historical event",
+        "defaultValue": ""
+      }
+    ]
+  }
+}
